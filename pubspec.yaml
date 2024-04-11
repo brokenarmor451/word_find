@@ -1,0 +1,14 @@
+name: word_find
+description: "Word find game"
+version: 0.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.3.0
+  flutter: ^3.13.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flame: ^1.17.0
+  path_provider: ^2.1.2
