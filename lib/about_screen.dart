@@ -1,11 +1,12 @@
 import 'package:flame/game.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import '../word_find_game.dart';
-import '../button.dart';
-import '../level.dart';
-import '../main_menu.dart';
-import '../text.dart';
+
+import 'word_find_game.dart';
+import 'button.dart';
+import 'level.dart';
+import 'main_menu.dart';
+import 'text.dart';
 
 class AboutScreen extends PositionComponent with HasGameReference<WordFindGame>{
   late final MyButton _licensesButton;
@@ -26,20 +27,20 @@ class AboutScreen extends PositionComponent with HasGameReference<WordFindGame>{
 
   void _makeLicensesButton() {
     _licensesButton = MyButton(
-      "LICENSES",
-      Level.gray,
-      Vector2(
+      text: "LICENSES",
+      position: Vector2(
         0,
         game.size.y / 2,
       ),
-      Vector2(
+      size: Vector2(
         game.size.x,
         game.size.y / 5,
       ),
-
-      () {
-        game.remove(this);
-        game.add(Licenses());
+      backgroundColor: Level.gray,
+      textColor: Level.yellow,
+      runFunction: () {
+        game.world.remove(this);
+        game.world.add(Licenses());
 
       },
     );
@@ -47,42 +48,42 @@ class AboutScreen extends PositionComponent with HasGameReference<WordFindGame>{
 
   void _makeBackButton() {
     _backButton = MyButton(
-      "BACK",
-      Level.gray,
-      Vector2(
+      text: "BACK",
+      position: Vector2(
         0,
         game.size.y - game.size.y / 8,
       ),
 
-      Vector2(
+      size: Vector2(
         game.size.x / 2,
         game.size.y / 8,
       ),
-
-      () {
-        game.remove(this);
-        game.add(MainMenu());
+      backgroundColor: Level.gray,
+      textColor: Level.yellow,
+      runFunction: () {
+        game.world.remove(this);
+        game.world.add(MainMenu());
       }
     );
   }
 
   void _makeVersion() {
     _version = TextRendering(
-      "VERSION\n" + _versionNumber,
-      Level.gray,
-      Vector2(
+      text: "VERSION\n" + _versionNumber,
+      position: Vector2(
         game.size.x - game.size.x / 5,
         game.size.y - game.size.y / 5,
       ),
-
-      Vector2(
+      size: Vector2(
         game.size.x / 5,
         game.size.y / 5,
-      )
+      ),
+      backgroundColor: Level.gray,
+      textColor: Level.purple3,
     );
   }
 
-  final String _versionNumber = "0.0.0";
+  final String _versionNumber = "0.0.1";
 }
 
 class Licenses extends PositionComponent with HasGameReference<WordFindGame>{
@@ -106,80 +107,79 @@ class Licenses extends PositionComponent with HasGameReference<WordFindGame>{
 
   void _makeLicensesButtons() {
     _license1 = MyButton(
-      'Dart BSD 3-Clause "New" or "Revised" License',
-      Level.gray,
-      Vector2(
+      text: 'Dart BSD 3-Clause "New" or "Revised" License',
+      position: Vector2(
         0,
         0,
       ),
 
-      Vector2(
+      size: Vector2(
         game.size.x,
         game.size.y / 5,
       ),
-
-      () {
-        game.remove(this);
-        game.add(LicenseTextShowingScreen(_licenseText1));
+      backgroundColor: Level.gray,
+      textColor: Level.yellow,
+      runFunction:() {
+        game.world.remove(this);
+        game.world.add(LicenseTextShowingScreen(_licenseText1));
       }
     );
 
     _license2 = MyButton(
-      'Flutter BSD-3-Clause license',
-      Level.gray,
-      Vector2(
+      text: 'Flutter BSD-3-Clause license',
+      position: Vector2(
         0,
         game.size.y / 5,
       ),
-
-      Vector2(
+      size: Vector2(
         game.size.x,
         game.size.y / 5,
       ),
-
-      () {
-        game.remove(this);
-        game.add(LicenseTextShowingScreen(_licenseText2));
+      backgroundColor: Level.gray,
+      textColor: Level.yellow,
+      runFunction: () {
+        game.world.remove(this);
+        game.world.add(LicenseTextShowingScreen(_licenseText2));
       }
     );
 
     _license3 = MyButton(
-      'Flame MIT License',
-      Level.gray,
-      Vector2(
+      text: 'Flame MIT License',
+      position: Vector2(
         0,
         game.size.y / 5 * 2,
       ),
 
-      Vector2(
+      size: Vector2(
         game.size.x,
         game.size.y / 5,
       ),
-
-      () {
-        game.remove(this);
-        game.add(LicenseTextShowingScreen(_licenseText3));
+      backgroundColor: Level.gray,
+      textColor: Level.yellow,
+      runFunction:() {
+        game.world.remove(this);
+        game.world.add(LicenseTextShowingScreen(_licenseText3));
       }
     );
   }
 
   void _makeBackButton() {
     _backButton = MyButton(
-      "BACK",
-      Level.gray,
-      Vector2(
+      text: "BACK",
+      position: Vector2(
         0,
         game.size.y - game.size.y / 8,
       ),
 
-      Vector2(
+      size: Vector2(
         game.size.x / 2,
         game.size.y / 8,
       ),
-
-      () {
-        game.remove(this);
-        game.add(AboutScreen());
+      backgroundColor: Level.gray,
+      textColor: Level.yellow,
+      runFunction:() {
+        game.world.remove(this);
+        game.world.add(AboutScreen());
       }
     );
   }
@@ -281,21 +281,21 @@ class LicenseTextShowingScreen extends PositionComponent with HasGameReference<W
 
   void _makeBackButton() {
     _backButton = MyButton(
-      "BACK",
-      Level.gray,
-      Vector2(
+      text: "BACK",
+      position: Vector2(
         0,
         game.size.y - game.size.y / 8,
       ),
 
-      Vector2(
+      size:Vector2(
         game.size.x / 2,
         game.size.y / 8,
       ),
-
-      (){
-        game.remove(this);
-        game.add(Licenses());
+      backgroundColor: Level.gray,
+      textColor: Level.yellow,
+      runFunction: (){
+        game.world.remove(this);
+        game.world.add(Licenses());
       }
     );
   }

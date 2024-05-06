@@ -1,8 +1,9 @@
-import '../main.dart';
-import '../level.dart';
-import '../text.dart';
 import 'package:flame/game.dart';
 import 'package:flame/components.dart';
+
+import 'main.dart';
+import 'level.dart';
+import 'text.dart';
 
 // for 6 x 6 letters grid
 class Grid{
@@ -48,16 +49,17 @@ class Grid{
 
       letterCells.add(
         TextRendering(
-          letters[i],
-          backgroundColors[i],
-          Vector2(
+          text: letters[i],
+          position: Vector2(
             x,
             y,
           ),
-          Vector2(
+          size: Vector2(
             cellWidth,
             cellHeight,
-          )
+          ),
+          backgroundColor: backgroundColors[i],
+          textColor: Level.purple3,
         )
       );
 

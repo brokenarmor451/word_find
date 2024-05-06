@@ -17,8 +17,14 @@ class Solveds {
       await solvedsFile.create();
     }
 
-    if(await solvedsFile.readAsString() == "") {
-      await solvedsFile.writeAsString("ONNNNNNNNNNNNNNNNNNNNNNNN");
+    final String getSolvedsAsString = await solvedsFile.readAsString();
+
+    if(getSolvedsAsString == "") {
+      await solvedsFile.writeAsString("ONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+    } else if(getSolvedsAsString.length == 25 && getSolvedsAsString[24] == 'Y') {
+        await solvedsFile.writeAsString(getSolvedsAsString + "ONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+    } else if(getSolvedsAsString.length == 25) {
+      await solvedsFile.writeAsString(getSolvedsAsString + "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
     }
 
     solvedsAsString = await solvedsFile.readAsString();
@@ -35,8 +41,7 @@ class Solveds {
     if(oldFile[index] != 'Y') {
       String newSolveds = oldFile.replaceRange(index, index + 1, "Y");
 
-      // there is no level 26 so don't make it as openable
-      if(index != 24) {
+      if(index != 199) {
         newSolveds = newSolveds.replaceRange(index + 1, index + 2, "O");
       }
 

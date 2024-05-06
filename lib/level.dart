@@ -1,13 +1,14 @@
 import 'package:flame/events.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
-import '../grid.dart';
-import '../main_menu.dart';
-import '../word_find_game.dart';
-import '../solveds.dart';
-import '../button.dart';
-import '../text.dart';
+
+import 'main.dart';
+import 'grid.dart';
+import 'main_menu.dart';
+import 'word_find_game.dart';
+import 'solveds.dart';
+import 'button.dart';
+import 'text.dart';
 
 int selectedLevelIndex = 0;
 
@@ -45,13 +46,17 @@ abstract class Level extends PositionComponent with TapCallbacks, DragCallbacks,
   static final Color green = Color(0xFFA8CD9F);
   static final Color gray = Color(0xFFB5C0D0);
   static final Color gray2 = Color(0xFF9CAFAA);
+  static final Color gray3 = Color(0xFFB2A59B);
   static final Color darkGreen = Color(0xFF627254);
   static final Color purple = Color(0xFF401F71);
   static final Color darkBlue = Color(0xFF496989);
   static final Color red = Color(0xFFA0153E);
   static final Color darkBlue2 = Color(0xFF5755FE);
+  static final Color darkBlue3 = Color(0xFF0766AD);
   static final Color purple2 = Color(0xFF430A5D);
   static final Color blue = Color(0xFF7AA2E3);
+  static final Color purple3 = Color(0xFFA0153E);
+  static final Color yellow = Color(0xFFDC6B19);
 
   @override
   Future<void> onLoad() async{
@@ -93,7 +98,7 @@ abstract class Level extends PositionComponent with TapCallbacks, DragCallbacks,
     final eventpos = event.canvasPosition;
     myline.xy1 = Offset(eventpos.x, eventpos.y);
     myline.xy2 = Offset(eventpos.x, eventpos.y);
-    checkIfApointInsideAnyStartTextRendering(eventpos.x, eventpos.y);
+    _checkIfApointInsideAnyStartLetterCell(eventpos.x, eventpos.y);
   }
 
   @override
@@ -103,7 +108,7 @@ abstract class Level extends PositionComponent with TapCallbacks, DragCallbacks,
 
   @override
   void onDragEnd(DragEndEvent event) {
-    checkIfApointInsideAnyEndTextRendering(
+    _checkIfApointInsideLastLetterCellOfSelectedWord(
       myline.xy2.dx,
       myline.xy2.dy
     );
@@ -117,13 +122,14 @@ abstract class Level extends PositionComponent with TapCallbacks, DragCallbacks,
     double buttonHeight,
   ) {
     _exitButton = MyButton(
-      "EXIT",
-      darkBlue,
-      Vector2(buttonX, buttonY),
-      Vector2(buttonWidth, buttonHeight),
-      () {
-        game.remove(this);
-        game.add(MainMenu());
+      text: "EXIT",
+      position: Vector2(buttonX, buttonY),
+      size: Vector2(buttonWidth, buttonHeight),
+      backgroundColor: darkBlue,
+      textColor: yellow,
+      runFunction: () {
+        game.world.remove(this);
+        game.world.add(MainMenu());
       }
     );
   }
@@ -150,7 +156,7 @@ abstract class Level extends PositionComponent with TapCallbacks, DragCallbacks,
     }
   }
 
-  void checkIfApointInsideAnyStartTextRendering(double posX, double posY) {
+  void _checkIfApointInsideAnyStartLetterCell(double posX, double posY) {
     wordsStartPlaces.asMap().forEach(
       (index, place) {
         // if word start selected set index and return
@@ -162,12 +168,12 @@ abstract class Level extends PositionComponent with TapCallbacks, DragCallbacks,
     );
   }
 
-  void checkIfApointInsideAnyEndTextRendering(double posX, double posY) {
+  void _checkIfApointInsideLastLetterCellOfSelectedWord(double posX, double posY) {
     if(selectedWord != -1 && grid.letterCells[wordsIndices[selectedWord][0]].backgroundColor == gray2) {
       final List<double> endplaces = wordsEndPlaces[selectedWord];
       // word found make its background color green
       if(isPointInsideRec(posX, posY, endplaces[0], endplaces[1], endplaces[2], endplaces[3])) {
-        tryCompleteLevel();
+        checkLevelStatus();
       } else {
         selectedWord = -1;
       }
@@ -183,7 +189,7 @@ abstract class Level extends PositionComponent with TapCallbacks, DragCallbacks,
   }
 
   // check found words and make things green
-  void tryCompleteLevel() async {
+  void checkLevelStatus() async {
     changeWordBackgroundToGreen();
     for(TextRendering wordRender in wordlist.wordsRenders) {
       // if one of words is not found return
@@ -253,10 +259,11 @@ class WordList {
     for(int i = 0; i < 4; i++) {
       wordsRenders.add(
         TextRendering(
-          words[i],
-          Level.gray2,
-          Vector2(x,y),
-          Vector2(wordWidth, wordHeight),
+          text: words[i],
+          position: Vector2(x,y),
+          size: Vector2(wordWidth, wordHeight),
+          backgroundColor: Level.gray2,
+          textColor: Level.purple3,
         )
       );
       y += wordHeight;

@@ -1,16 +1,20 @@
-import '../text.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
+import 'text.dart';
+
 class MyButton extends TextRendering with TapCallbacks {
   MyButton(
-    String text,
-    Color backgroundColor ,
-    Vector2 position,
-    Vector2 size,
-    this.runFunction,
-  ): super(text, backgroundColor, position, size);
+    {
+      super.text,
+      super.position,
+      super.size,
+      required super.textColor,
+      required super.backgroundColor,
+      required this.runFunction,
+    }
+  );
 
   final Function runFunction;
 

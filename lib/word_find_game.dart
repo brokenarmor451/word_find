@@ -1,7 +1,10 @@
 import 'package:flame/game.dart';
+import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import '../main_menu.dart';
-import '../level.dart';
+//import 'package:flame/camera.dart';
+
+import 'main_menu.dart';
+import 'level.dart';
 
 class WordFindGame extends FlameGame {
   late final mainMenu;
@@ -9,8 +12,9 @@ class WordFindGame extends FlameGame {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    camera.viewfinder.anchor = Anchor.topLeft;
     mainMenu = MainMenu();
-    add(mainMenu);
+    world.add(mainMenu);
   }
 
   @override

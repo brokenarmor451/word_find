@@ -1,4 +1,4 @@
-import '../level.dart';
+import 'level.dart';
 
 class Level1 extends Level{
   final List<String> letters = """
@@ -220,7 +220,7 @@ class Level9 extends Level{
   final List<String> letters = """
     KNPLNY
     KYEPNY
-    NKNEWO
+    NKNEWK
     OHIGHY
     WHIGLE
     WWNOWS
@@ -245,7 +245,7 @@ class Level9 extends Level{
 
 class Level10 extends Level{
   final List<String> letters = """
-    RAIKON
+    RAIWON
     HAHXWE
     HOAHRA
     ALRARA
@@ -650,9 +650,9 @@ class Level24 extends Level{
 
 class Level25 extends Level{
   final List<String> letters = """
-    TGIVOM
+    TGIVGM
     MEETOG
-    JOJJOI
+    JGJJGI
     TMOGIV
     MEIMEE
     MTNGIV
@@ -672,5 +672,59 @@ class Level25 extends Level{
     "GIVE",
     "JOIN",
     "MET",
+  ];
+}
+
+class Level26 extends Level{
+  final List<String> letters = """
+    MAKPDA
+    DROALL
+    MRDDRL
+    DMARDO
+    ALLOAW
+    MAKESW
+  """.replaceAll(" ", "").replaceAll("\n", "").split("");
+
+  final List<int> starts = [5,18,14,30];
+  final List<int> ends = [29,3,35,34];
+  final List<List<int>> wordsIndices = [
+    [5,11,17,23,29],
+    [18,13,8,3],
+    [14,21,28,35],
+    [30,31,32,33,34],
+  ];
+
+  final List<String> words = [
+    "ALLOW",
+    "DROP",
+    "DRAW",
+    "MAKES",
+  ];
+}
+
+class Level27 extends Level{
+  final List<String> letters = """
+    MADAMA
+    PAPDPR
+    DMPVOL
+    MAESLM
+    MRPAMA
+    PPMMDAL
+  """.replaceAll(" ", "").replaceAll("\n", "").split("");
+
+  final List<int> starts = [9,32,0,30];
+  final List<int> ends = [16,17,21,15];
+  final List<List<int>> wordsIndices = [
+    [9,16],
+    [32,27,22,17],
+    [0,7,14,21],
+    [30,25,20,15],
+  ];
+
+  final List<String> words = [
+    "DO",
+    "MALL",
+    "MAPS",
+    "PREV",
   ];
 }
